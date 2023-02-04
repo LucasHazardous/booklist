@@ -6,7 +6,7 @@ plugins {
 
 group = "com.github.lucashazardous"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_HIGHER
+java.sourceCompatibility = JavaVersion.VERSION_19
 
 repositories {
 	mavenCentral()
@@ -16,6 +16,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	compileOnly("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
