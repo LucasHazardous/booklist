@@ -12,6 +12,11 @@ import java.util.Date;
 public class Book {
     @MongoId
     private String id;
+    private String title;
+    private String author;
+    private int pages;
+    private int currentPage;
+    private Date addedDate;
 
     public void setTitle(String title) {
         this.title = title;
@@ -41,15 +46,19 @@ public class Book {
         return title;
     }
 
-    public boolean isFinished() {
-        return finished;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
 
-    private String title;
-    private String author;
-    private int pages;
-    private int currentPage;
-    private boolean finished;
-    private Date addedDate;
+    public Date getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate) {
+        this.addedDate = addedDate;
+    }
 }
