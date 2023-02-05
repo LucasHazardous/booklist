@@ -29,6 +29,14 @@ public class Book {
         return id;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
     public String getTitle() {
         return title;
     }
