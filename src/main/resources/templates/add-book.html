@@ -5,16 +5,37 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/bulma.min.css">
+    <link rel="stylesheet" href="/css/bulma.min.css">
     <title>booklist</title>
 </head>
 <body>
 
-    <form th:action="@{/add-book}" th:object="${book}" method="post">
-        <label for="title">Title</label>
-        <input type="text" th:field="*{title}" id="title" placeholder="Title">
-        <span th:if="${#fields.hasErrors('title')}" class="is-danger" th:errors="*{title}"></span>
-        <input type="submit" class="button" value="Add Book">
+    <form th:action="@{/add-book}" th:object="${book}" method="post" class="container">
+        <div class="p-5">
+            <a class="button is-danger is-outlined" href="/">Exit</a>
+        </div>
+
+        <div class="field p-5">
+            <label for="title" class="label">Title</label>
+            <input type="text" class="input" th:field="*{title}" id="title" placeholder="Title">
+            <span th:if="${#fields.hasErrors('title')}" class="input is-small is-danger mt-2" th:errors="*{title}"></span>
+        </div>
+
+        <div class="field p-5">
+            <label for="author" class="label">Author</label>
+            <input type="text" class="input" th:field="*{author}" id="author" placeholder="Author">
+            <span th:if="${#fields.hasErrors('author')}" class="input is-small is-danger mt-2" th:errors="*{author}"></span>
+        </div>
+
+        <div class="field p-5">
+            <label for="pages" class="label">Pages</label>
+            <input type="number" class="input" th:field="*{pages}" id="pages" placeholder="Pages">
+            <span th:if="${#fields.hasErrors('pages')}" class="input is-small is-danger mt-2" th:errors="*{pages}"></span>
+        </div>
+
+        <div class="p-5">
+            <input type="submit" class="button is-primary is-outlined" value="Add Book">
+        </div>
     </form>
 </body>
 </html>
