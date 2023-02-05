@@ -14,6 +14,14 @@
             <div class="panel-heading m-0">
                 Books
             </div>
+            <div class="panel-block">
+                <form th:action="@{/search}" method="post" class="container columns m-2 p-2">
+                    <!--/*@thymesVar id="term" type="java.lang.String"*/-->
+                    <label for="term"></label>
+                    <input class="input column is-four-fifths" name="term" type="text" id="term" placeholder="Search" th:value="${term}">
+                    <input type="submit" class="button is-outlined is-primary is-light column is-one-fifth" value="🔎">
+                </form>
+            </div>
             <div class="panel-block columns" th:each="book: ${books}">
                 <b class="column is-one-third" style="overflow-x: auto;" th:text="${book.title}"></b>
                 <i class="column is-one-third" style="overflow-x: auto;" th:text="${book.author}"></i>
