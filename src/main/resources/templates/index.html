@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="overflow: hidden">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,10 +12,12 @@
     <main class="columns is-vcentered m-4">
         <div class="panel is-primary column is-two-thirds">
             <div class="panel-heading m-0">
-                Hello
+                Books
             </div>
-            <div class="panel-block" th:each="book: ${books}">
-                <b th:text="${book.id + book.title}"></b>
+            <div class="panel-block columns" th:each="book: ${books}">
+                <b class="column is-one-third" style="overflow-x: auto;" th:text="${book.title}"></b>
+                <i class="column is-one-third" style="overflow-x: auto;" th:text="${book.author}"></i>
+                <span class="column is-one-third" style="overflow-x: auto;" th:text="${book.pages}"></span>
             </div>
         </div>
         <div class="panel is-primary column is-one-third ml-2">
