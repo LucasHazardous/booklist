@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Instant;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 public class BookController {
@@ -21,7 +25,9 @@ public class BookController {
 
     @GetMapping("/")
     public String showIndex(Model model) {
-        model.addAttribute("books", this.bookRepository.findAll());
+        model.addAttribute("books", this.bookRepository.findAll().stream()
+                .sorted(Comparator.comparing(Book::getAddedDate).reversed())
+                .collect(Collectors.toList()));
         return "index";
     }
 
@@ -40,13 +46,14 @@ public class BookController {
 
     @PostMapping("/add-book")
     public String addBook(Book book, BindingResult result) {
-        if(Objects.equals(book.getTitle(), "")) result.rejectValue("title", "", "Title can't be empty.");
-        if(Objects.equals(book.getAuthor(), "")) result.rejectValue("author", "", "Author can't be empty.");
+        if(book.getTitle() == null || Objects.equals(book.getTitle().strip(), "")) result.rejectValue("title", "", "Title can't be empty.");
+        if(book.getAuthor() == null || Objects.equals(book.getAuthor().strip(), "")) result.rejectValue("author", "", "Author can't be empty.");
         if(book.getPages() <= 0) result.rejectValue("pages", "", "Book must have at least one page.");
 
         if (result.hasErrors()) {
             return "add-book";
         }
+        book.setAddedDate(Date.from(Instant.now()));
         this.bookRepository.save(book);
         return "redirect:/";
     }
