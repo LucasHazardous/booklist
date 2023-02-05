@@ -49,6 +49,7 @@ public class BookController {
         if(book.getTitle() == null || Objects.equals(book.getTitle().strip(), "")) result.rejectValue("title", "", "Title can't be empty.");
         if(book.getAuthor() == null || Objects.equals(book.getAuthor().strip(), "")) result.rejectValue("author", "", "Author can't be empty.");
         if(book.getPages() <= 0) result.rejectValue("pages", "", "Book must have at least one page.");
+        if(book.getCurrentPage() < 0 || book.getCurrentPage() > book.getPages()) result.rejectValue("currentPage", "", "Invalid current page.");
 
         if (result.hasErrors()) {
             return "add-book";
