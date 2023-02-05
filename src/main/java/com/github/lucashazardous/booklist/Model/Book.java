@@ -41,6 +41,11 @@ public class Book {
         return title;
     }
 
+    public boolean isFinished() {
+        return finished;
+    }
+
+
     private String title;
     private String author;
     private int pages;
