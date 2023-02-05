@@ -33,7 +33,7 @@ public class BookController {
 
     @PostMapping("/search")
     public String searchBook(@RequestParam("term") String term, Model model) {
-        model.addAttribute("books", this.bookRepository.findAllByTitleContainsOrAuthorContains(term, term));
+        model.addAttribute("books", this.bookRepository.findAllByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCase(term, term));
         model.addAttribute("term", term);
         return "index";
     }
