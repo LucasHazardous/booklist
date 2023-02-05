@@ -25,9 +25,9 @@
             <div class="panel-block columns" th:each="book: ${books}">
                 <b class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.title}"></b>
                 <i class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.author}"></i>
-                <span class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.pages}"></span>
-                <span class="column is-one-quarter has-text-primary" th:if="${book.finished}" style="overflow-x: auto;">Finished</span>
-                <span class="column is-one-quarter has-text-danger" th:if="${!book.finished}" style="overflow-x: auto;">Not Finished</span>
+                <span class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.currentPage + ' / ' + book.pages}"></span>
+                <span class="column is-one-quarter has-text-primary" th:if="${book.pages == book.currentPage}" style="overflow-x: auto;">Finished</span>
+                <span class="column is-one-quarter has-text-danger" th:if="${!(book.pages == book.currentPage)}" style="overflow-x: auto;">Not Finished</span>
             </div>
         </div>
         <div class="panel is-primary column is-one-third ml-2">
