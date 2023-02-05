@@ -19,13 +19,15 @@
                     <!--/*@thymesVar id="term" type="java.lang.String"*/-->
                     <label for="term"></label>
                     <input class="input column is-four-fifths" name="term" type="text" id="term" placeholder="Search" th:value="${term}">
-                    <input type="submit" class="button is-outlined is-primary is-light column is-one-fifth" value="🔎">
+                    <input type="submit" class="button is-outlined is-primary is-light column is-one-fifth ml-2" value="🔎">
                 </form>
             </div>
             <div class="panel-block columns" th:each="book: ${books}">
-                <b class="column is-one-third" style="overflow-x: auto;" th:text="${book.title}"></b>
-                <i class="column is-one-third" style="overflow-x: auto;" th:text="${book.author}"></i>
-                <span class="column is-one-third" style="overflow-x: auto;" th:text="${book.pages}"></span>
+                <b class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.title}"></b>
+                <i class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.author}"></i>
+                <span class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.pages}"></span>
+                <span class="column is-one-quarter has-text-primary" th:if="${book.finished}" style="overflow-x: auto;">Finished</span>
+                <span class="column is-one-quarter has-text-danger" th:if="${!book.finished}" style="overflow-x: auto;">Not Finished</span>
             </div>
         </div>
         <div class="panel is-primary column is-one-third ml-2">
