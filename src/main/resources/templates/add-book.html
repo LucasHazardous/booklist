@@ -28,8 +28,14 @@
         </div>
 
         <div class="field p-5">
-            <label for="pages" class="label">Pages</label>
-            <input type="number" class="input" th:field="*{pages}" id="pages" placeholder="Pages">
+            <label for="currentPage" class="label">Current Page</label>
+            <input type="number" class="input" th:field="*{currentPage}" id="currentPage" placeholder="Current Page">
+            <span th:if="${#fields.hasErrors('currentPage')}" class="input is-small is-danger mt-2" th:errors="*{currentPage}"></span>
+        </div>
+
+        <div class="field p-5">
+            <label for="pages" class="label">Total Pages</label>
+            <input type="number" class="input" th:field="*{pages}" id="pages" placeholder="Total Pages">
             <span th:if="${#fields.hasErrors('pages')}" class="input is-small is-danger mt-2" th:errors="*{pages}"></span>
         </div>
 
