@@ -14,8 +14,8 @@
             <div class="panel-heading m-0">
                 Books
             </div>
-            <div class="panel-block">
-                <form th:action="@{/search}" method="post" class="container columns m-2 p-2">
+            <div class="panel-block p-6">
+                <form th:action="@{/search}" method="post" class="container columns">
                     <!--/*@thymesVar id="term" type="java.lang.String"*/-->
                     <label for="term"></label>
                     <input class="input column is-four-fifths" name="term" type="text" id="term" placeholder="Search" th:value="${term}">
@@ -23,11 +23,14 @@
                 </form>
             </div>
             <div class="panel-block columns" th:each="book: ${books}">
-                <b class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.title}"></b>
-                <i class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.author}"></i>
-                <span class="column is-one-quarter" style="overflow-x: auto;" th:text="${book.currentPage + ' / ' + book.pages}"></span>
-                <span class="column is-one-quarter has-text-primary" th:if="${book.pages == book.currentPage}" style="overflow-x: auto;">Finished</span>
-                <span class="column is-one-quarter has-text-danger" th:if="${!(book.pages == book.currentPage)}" style="overflow-x: auto;">Not Finished</span>
+                <b class="column is-one-fifth" style="overflow-x: auto;" th:text="${book.title}"></b>
+                <i class="column is-one-fifth" style="overflow-x: auto;" th:text="${book.author}"></i>
+                <span class="column is-one-fifth" style="overflow-x: auto;" th:text="${book.currentPage + ' / ' + book.pages}"></span>
+                <span class="column is-one-fifth has-text-primary" th:if="${book.pages == book.currentPage}" style="overflow-x: auto;">Finished</span>
+                <span class="column is-one-fifth has-text-danger" th:if="${!(book.pages == book.currentPage)}" style="overflow-x: auto;">Not Finished</span>
+                <button class="button is-danger is-light column is-one-fifth"
+                        th:data-id="${book.id}"
+                        onclick="fetch(`/delete/` + this.getAttribute('data-id'), {method: 'DELETE'}).then(() => location.reload())">Delete</button>
             </div>
         </div>
         <div class="panel is-primary column is-one-third ml-2">

@@ -5,9 +5,7 @@ import com.github.lucashazardous.booklist.Repository.BookRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.Comparator;
@@ -57,5 +55,11 @@ public class BookController {
         book.setAddedDate(Date.from(Instant.now()));
         this.bookRepository.save(book);
         return "redirect:/";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") String id) {
+        this.bookRepository.deleteById(id);
+        return "index";
     }
 }
