@@ -16,7 +16,11 @@ public class Book {
     private String author;
     private int pages;
     private int currentPage;
-    private Date addedDate;
+    private Date modifiedDate;
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -54,11 +58,11 @@ public class Book {
         this.currentPage = currentPage;
     }
 
-    public Date getAddedDate() {
-        return addedDate;
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 
-    public void setAddedDate(Date addedDate) {
-        this.addedDate = addedDate;
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }
