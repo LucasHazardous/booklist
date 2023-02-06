@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/bulma.min.css">
+  <title>Edit Book</title>
+</head>
+<body>
+    <form th:action="@{/edit-book/{id}(id=${book.id})}" th:object="${book}" method="post" class="container">
+        <div class="p-5">
+            <a class="button is-danger is-outlined" href="/">Exit</a>
+        </div>
+
+        <div class="field p-5">
+            <label for="title" class="label">Title</label>
+            <input type="text" class="input" th:field="*{title}" id="title" placeholder="Title">
+            <span th:if="${#fields.hasErrors('title')}" class="input is-small is-danger mt-2" th:errors="*{title}"></span>
+        </div>
+
+        <div class="field p-5">
+            <label for="author" class="label">Author</label>
+            <input type="text" class="input" th:field="*{author}" id="author" placeholder="Author">
+            <span th:if="${#fields.hasErrors('author')}" class="input is-small is-danger mt-2" th:errors="*{author}"></span>
+        </div>
+
+        <div class="field p-5">
+            <label for="currentPage" class="label">Current Page</label>
+            <input type="number" class="input" th:field="*{currentPage}" id="currentPage" placeholder="Current Page">
+            <span th:if="${#fields.hasErrors('currentPage')}" class="input is-small is-danger mt-2" th:errors="*{currentPage}"></span>
+        </div>
+
+        <div class="field p-5">
+            <label for="pages" class="label">Total Pages</label>
+            <input type="number" class="input" th:field="*{pages}" id="pages" placeholder="Total Pages">
+            <span th:if="${#fields.hasErrors('pages')}" class="input is-small is-danger mt-2" th:errors="*{pages}"></span>
+        </div>
+
+        <div class="p-5">
+            <input type="submit" class="button is-primary is-outlined" value="Edit Book">
+        </div>
+    </form>
+</body>
+</html>
