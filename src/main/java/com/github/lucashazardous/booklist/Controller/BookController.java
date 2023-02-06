@@ -24,7 +24,7 @@ public class BookController {
     @GetMapping("/")
     public String showIndex(Model model) {
         model.addAttribute("books", this.bookRepository.findAll().stream()
-                .sorted(Comparator.comparing(Book::getAddedDate).reversed())
+                .sorted(Comparator.comparing(Book::getModifiedDate).reversed())
                 .collect(Collectors.toList()));
         return "index";
     }
@@ -44,15 +44,11 @@ public class BookController {
 
     @PostMapping("/add-book")
     public String addBook(Book book, BindingResult result) {
-        if(book.getTitle() == null || Objects.equals(book.getTitle().strip(), "")) result.rejectValue("title", "", "Title can't be empty.");
-        if(book.getAuthor() == null || Objects.equals(book.getAuthor().strip(), "")) result.rejectValue("author", "", "Author can't be empty.");
-        if(book.getPages() <= 0) result.rejectValue("pages", "", "Book must have at least one page.");
-        if(book.getCurrentPage() < 0 || book.getCurrentPage() > book.getPages()) result.rejectValue("currentPage", "", "Invalid current page.");
-
+        bookValidation(book, result);
         if (result.hasErrors()) {
             return "add-book";
         }
-        book.setAddedDate(Date.from(Instant.now()));
+        book.setModifiedDate(Date.from(Instant.now()));
         this.bookRepository.save(book);
         return "redirect:/";
     }
@@ -61,5 +57,30 @@ public class BookController {
     public String deleteBook(@PathVariable("id") String id) {
         this.bookRepository.deleteById(id);
         return "index";
+    }
+
+    @GetMapping("/edit-book/{id}")
+    public String showEditBook(@PathVariable("id") String id, Model model) {
+        model.addAttribute("book", this.bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book id: " + id)));
+        return "edit-book";
+    }
+
+    @PostMapping("/edit-book/{id}")
+    public String editBook(@PathVariable("id") String id, Book book, BindingResult result) {
+        book.setModifiedDate(Date.from(Instant.now()));
+        bookValidation(book, result);
+        if (result.hasErrors()) {
+            book.setId(id);
+            return "edit-book";
+        }
+        this.bookRepository.save(book);
+        return "redirect:/";
+    }
+
+    private void bookValidation(Book book, BindingResult result) {
+        if(book.getTitle() == null || Objects.equals(book.getTitle().strip(), "")) result.rejectValue("title", "", "Title can't be empty.");
+        if(book.getAuthor() == null || Objects.equals(book.getAuthor().strip(), "")) result.rejectValue("author", "", "Author can't be empty.");
+        if(book.getPages() <= 0) result.rejectValue("pages", "", "Book must have at least one page.");
+        if(book.getCurrentPage() < 0 || book.getCurrentPage() > book.getPages()) result.rejectValue("currentPage", "", "Invalid current page.");
     }
 }
