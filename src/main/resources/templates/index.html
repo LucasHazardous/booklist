@@ -28,7 +28,8 @@
                 <span class="column is-one-fifth" style="overflow-x: auto;" th:text="${book.currentPage + ' / ' + book.pages}"></span>
                 <span class="column is-one-fifth has-text-primary" th:if="${book.pages == book.currentPage}" style="overflow-x: auto;">Finished</span>
                 <span class="column is-one-fifth has-text-danger" th:if="${!(book.pages == book.currentPage)}" style="overflow-x: auto;">Not Finished</span>
-                <button class="button is-danger is-light column is-one-fifth"
+                <a th:href="${'/edit-book/' + book.id}" class="button is-warning is-light column is-1">Edit</a>
+                <button class="button is-danger is-light column is-1"
                         th:data-id="${book.id}"
                         onclick="fetch(`/delete/` + this.getAttribute('data-id'), {method: 'DELETE'}).then(() => location.reload())">Delete</button>
             </div>
