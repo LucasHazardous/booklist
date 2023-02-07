@@ -18,6 +18,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	compileOnly("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.apache.httpcomponents:httpclient")
 }
 
 tasks.withType<Test> {
