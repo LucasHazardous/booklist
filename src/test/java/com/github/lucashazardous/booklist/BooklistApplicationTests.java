@@ -42,11 +42,9 @@ class BooklistApplicationTests {
                 .setEntity(new UrlEncodedFormEntity(bookValues))
                 .build();
 
-        long countBefore = bookRepository.count();
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        long countAfter = bookRepository.count();
 
+        assert bookRepository.findById("test").isPresent();
         assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY;
-        assert countBefore+1 == countAfter;
     }
 }
