@@ -44,13 +44,7 @@ public class BookController {
 
     @PostMapping("/add-book")
     public String addBook(Book book, BindingResult result) {
-        bookValidation(book, result);
-        if (result.hasErrors()) {
-            return "add-book";
-        }
-        book.setModifiedDate(Date.from(Instant.now()));
-        this.bookRepository.save(book);
-        return "redirect:/";
+        return saveBookWithCurrentDateOrReject("add-book", book, result);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -67,11 +61,14 @@ public class BookController {
 
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable("id") String id, Book book, BindingResult result) {
+        return saveBookWithCurrentDateOrReject("edit-book", book, result);
+    }
+
+    private String saveBookWithCurrentDateOrReject(String operation, Book book, BindingResult result) {
         book.setModifiedDate(Date.from(Instant.now()));
         bookValidation(book, result);
         if (result.hasErrors()) {
-            book.setId(id);
-            return "edit-book";
+            return operation;
         }
         this.bookRepository.save(book);
         return "redirect:/";
