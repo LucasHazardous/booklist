@@ -60,7 +60,7 @@ public class BookController {
     }
 
     @PostMapping("/edit-book/{id}")
-    public String editBook(@PathVariable("id") String id, Book book, BindingResult result) {
+    public String editBook(Book book, BindingResult result) {
         return saveBookWithCurrentDateOrReject("edit-book", book, result);
     }
 
