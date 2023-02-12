@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.List;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestPropertySource(locations = "/application.properties",
+        properties = "spring.data.mongodb.host=localhost")
 class BooklistApplicationTests {
     private final List<NameValuePair> bookValues;
     private final String BOOK_ID = "test";
