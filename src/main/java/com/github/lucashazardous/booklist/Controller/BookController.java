@@ -2,6 +2,7 @@ package com.github.lucashazardous.booklist.Controller;
 
 import com.github.lucashazardous.booklist.Model.Book;
 import com.github.lucashazardous.booklist.Repository.BookRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,10 +68,14 @@ public class BookController {
     private String saveBookWithCurrentDateOrReject(String operation, Book book, BindingResult result) {
         book.setModifiedDate(Date.from(Instant.now()));
         bookValidation(book, result);
+        try {
+            this.bookRepository.save(book);
+        } catch (DuplicateKeyException ignored) {
+            result.rejectValue("title", "", "Book with this exact title from the same author already exists.");
+        }
         if (result.hasErrors()) {
             return operation;
         }
-        this.bookRepository.save(book);
         return "redirect:/";
     }
 
