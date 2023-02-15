@@ -68,14 +68,19 @@ public class BookController {
     private String saveBookWithCurrentDateOrReject(String operation, Book book, BindingResult result) {
         book.setModifiedDate(Date.from(Instant.now()));
         bookValidation(book, result);
+
+        if (result.hasErrors())
+            return operation;
+
         try {
             this.bookRepository.save(book);
         } catch (DuplicateKeyException ignored) {
             result.rejectValue("title", "", "Book with this exact title from the same author already exists.");
         }
-        if (result.hasErrors()) {
+
+        if (result.hasErrors())
             return operation;
-        }
+        
         return "redirect:/";
     }
 
