@@ -56,6 +56,23 @@ class BooklistApplicationTests {
 
     @Test
     @Order(2)
+    public void bookModification() throws IOException, AssertionError {
+        bookValues.remove(1);
+        bookValues.add(1, new BasicNameValuePair("title", "Test 2"));
+
+        HttpUriRequest request = RequestBuilder.create("POST")
+                .setUri("http://localhost:8080/edit-book/" + BOOK_ID)
+                .setEntity(new UrlEncodedFormEntity(bookValues))
+                .build();
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert bookRepository.findById(BOOK_ID).isPresent() && bookRepository.findById(BOOK_ID).get().getTitle().equals("Test 2");
+        assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY;
+    }
+
+    @Test
+    @Order(3)
     public void bookDeletion() throws IOException, AssertionError {
         HttpUriRequest request = RequestBuilder.create("DELETE")
                 .setUri("http://localhost:8080/delete/" + BOOK_ID)
